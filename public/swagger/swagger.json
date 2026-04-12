@@ -1,0 +1,3289 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"ApiResponse": {
+				"properties": {
+					"status": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {},
+					"code": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"status",
+					"message",
+					"code"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"InitMultipartRequest": {
+				"properties": {
+					"fileName": {
+						"type": "string"
+					},
+					"fileType": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"fileName",
+					"fileType"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"SignPartRequest": {
+				"properties": {
+					"key": {
+						"type": "string"
+					},
+					"uploadId": {
+						"type": "string"
+					},
+					"partNumber": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"key",
+					"uploadId",
+					"partNumber"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CompleteMultipartRequest": {
+				"properties": {
+					"key": {
+						"type": "string"
+					},
+					"uploadId": {
+						"type": "string"
+					},
+					"parts": {
+						"items": {
+							"properties": {
+								"PartNumber": {
+									"type": "number",
+									"format": "double"
+								},
+								"ETag": {
+									"type": "string"
+								}
+							},
+							"required": [
+								"PartNumber",
+								"ETag"
+							],
+							"type": "object"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"key",
+					"uploadId",
+					"parts"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {
+			"Bearer": {
+				"type": "apiKey",
+				"name": "Authorization",
+				"in": "header",
+				"description": "JWT Authorization header using the Bearer scheme."
+			}
+		}
+	},
+	"info": {
+		"title": "boiler_api_5300",
+		"version": "1.0.0",
+		"description": "Boilerplate apis",
+		"license": {
+			"name": "license"
+		},
+		"contact": {
+			"name": "STS"
+		}
+	},
+	"paths": {
+		"/user/common/contactus/fill": {
+			"post": {
+				"operationId": "ContactUs",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Contact Us",
+				"tags": [
+					"User Common Routes"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"message": {
+										"type": "string"
+									},
+									"email": {
+										"type": "string"
+									},
+									"name": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"email",
+									"name"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/auth/login": {
+			"post": {
+				"operationId": "Login",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Get User login",
+				"tags": [
+					"User Auth Routes"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"password": {
+										"type": "string"
+									},
+									"email": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"password",
+									"email"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/auth/register": {
+			"post": {
+				"operationId": "Register",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Save a User",
+				"tags": [
+					"User Auth Routes"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"Name": {
+										"type": "string"
+									},
+									"Email": {
+										"type": "string"
+									},
+									"phone_no": {
+										"type": "string"
+									},
+									"password": {
+										"type": "string"
+									},
+									"Role": {
+										"type": "string"
+									},
+									"Address": {
+										"type": "string"
+									},
+									"profile_pic": {
+										"type": "string",
+										"format": "binary"
+									}
+								},
+								"required": [
+									"Name",
+									"Email",
+									"phone_no",
+									"password"
+								]
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/auth/forgot_password": {
+			"post": {
+				"operationId": "ForgotPassword",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Forgot password api endpoint",
+				"tags": [
+					"User Auth Routes"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"email": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"email"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/auth/reset_password": {
+			"post": {
+				"operationId": "ResetPassword",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Reset password api endpoint",
+				"tags": [
+					"User Auth Routes"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"otp": {
+										"type": "string"
+									},
+									"new_password": {
+										"type": "string"
+									},
+									"email": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"otp",
+									"new_password",
+									"email"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/auth/verify_otp": {
+			"post": {
+				"operationId": "VerifyOtp",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Verify Otp Route  api endpoint",
+				"tags": [
+					"User Auth Routes"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"otp": {
+										"type": "string"
+									},
+									"email": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"otp",
+									"email"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/auth/resend_otp": {
+			"post": {
+				"operationId": "ResendOtp",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Resend Otp Route  api endpoint",
+				"tags": [
+					"User Auth Routes"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"email": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"email"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/auth/change_password": {
+			"post": {
+				"operationId": "ChangePassword",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Change Password endpoint",
+				"tags": [
+					"User Auth Routes"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"new_password": {
+										"type": "string"
+									},
+									"old_password": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"new_password",
+									"old_password"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/auth/details": {
+			"get": {
+				"operationId": "GetUserDetails",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Get User info",
+				"tags": [
+					"User Auth Routes"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/user/auth/profile": {
+			"put": {
+				"operationId": "UpdateUserProfile",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Update User Profile",
+				"tags": [
+					"User Auth Routes"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": false,
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"Name": {
+										"type": "string"
+									},
+									"phone_no": {
+										"type": "string"
+									},
+									"Address": {
+										"type": "string"
+									},
+									"profile_pic": {
+										"type": "string",
+										"format": "binary"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/auth/delete_deactivate": {
+			"delete": {
+				"operationId": "DeleteOrDeactivateAccount",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "delete or deactivate user account\r\n2 for delete 3 for deactivate",
+				"tags": [
+					"User Auth Routes"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"reason": {
+										"type": "string"
+									},
+									"status": {
+										"type": "number",
+										"format": "double"
+									}
+								},
+								"required": [
+									"status"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/auth/refresh_token": {
+			"post": {
+				"operationId": "RefreshToken",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Refresh tokne api\r\nprovide refresh token in this api and get new access token",
+				"tags": [
+					"User Auth Routes"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"refresh_token": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"refresh_token"
+								]
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/auth/logout": {
+			"post": {
+				"operationId": "LogoutUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Logout User",
+				"tags": [
+					"User Auth Routes"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/user/auth/upload_file": {
+			"post": {
+				"operationId": "UploadFile",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Upload a file",
+				"tags": [
+					"User Auth Routes"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"file": {
+										"type": "string",
+										"format": "binary"
+									}
+								},
+								"required": [
+									"file"
+								]
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/auth/details_user": {
+			"get": {
+				"operationId": "GetUserDetailsUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Get User info",
+				"tags": [
+					"User Auth Routes"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/reservation/create_reservation": {
+			"post": {
+				"operationId": "CreateReservation",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"reservation Book"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"reserved_date": {
+										"type": "string",
+										"format": "date-time"
+									},
+									"totalBook_reserved": {
+										"type": "number",
+										"format": "double"
+									},
+									"bookId": {
+										"type": "string"
+									},
+									"member_id": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"reserved_date",
+									"totalBook_reserved",
+									"bookId",
+									"member_id"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/reservation/get_reservation_book": {
+			"get": {
+				"operationId": "GetreservedBook",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"reservation Book"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/reservation/update_reservation_book": {
+			"put": {
+				"operationId": "UpdatereservedBook",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"reservation Book"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"totalBook_reserved": {
+										"type": "number",
+										"format": "double"
+									},
+									"book_name": {
+										"type": "string"
+									},
+									"_id": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"totalBook_reserved",
+									"book_name",
+									"_id"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/reservation/delete_reservation_book": {
+			"delete": {
+				"operationId": "DeletereservedBook",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"reservation Book"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"_id": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"_id"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/libran/join_member/join_member": {
+			"post": {
+				"operationId": "JoinMember",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "API: Join Member\r\nMethod: POST\r\nURL: /join_member\r\n\r\nDescription:\r\nLogged-in user can join membership (BASIC or PREMIUM).\r\nOnly users with role \"USER\" are allowed.\r\n\r\n  \"memberShipType\": \"BASIC\" | \"PREMIUM\"",
+				"tags": [
+					"join member"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"memberShipType": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"memberShipType"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/libran/join_member/get_member": {
+			"get": {
+				"operationId": "GetMember",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"join member"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/libran/join_member/update_member": {
+			"put": {
+				"operationId": "Updatemember",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"join member"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"memberShipType": {
+										"type": "string"
+									},
+									"Address": {
+										"type": "string"
+									},
+									"name": {
+										"type": "string"
+									},
+									"_id": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"memberShipType",
+									"Address",
+									"name",
+									"_id"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/libran/join_member/soft_delete": {
+			"delete": {
+				"operationId": "SoftDelete",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"join member"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"_id": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"_id"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/libran/inventory/book_condition": {
+			"post": {
+				"operationId": "BookCondition",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "API: Add Book Condition\r\nPOST /libran/inventory/book_condition\r\n\r\nBody:\r\n{ bookId, book_condition (NEW|GOOD|DAMAGED|LOST), note? }\r\n\r\nAccess: Librarian only",
+				"tags": [
+					"Library Book management"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"book_status": {
+										"type": "string"
+									},
+									"note": {
+										"type": "string"
+									},
+									"book_condition": {
+										"type": "string"
+									},
+									"bookId": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"book_status",
+									"note",
+									"book_condition",
+									"bookId"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/libran/inventory/getAll_book_condition": {
+			"get": {
+				"operationId": "GetBookCondition",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "API: Get All Book Conditions (Inventory)\r\nGET /libran/inventory/getAll_book_condition\r\n\r\nAccess: Librarian only",
+				"tags": [
+					"Library Book management"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/libran/inventory/update_book_condition": {
+			"put": {
+				"operationId": "UpdateBookCondition",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "API: Update Book Condition\r\n\r\nBody:\r\n{\r\n  id: string, // inventory record ID\r\n  book_condition?: \"NEW\" | \"GOOD\" | \"DAMAGED\" | \"LOST\",\r\n  note?: string,\r\n  book_status?: \"AVAILABLE\" | \"ISSUED\"\r\n}\r\n\r\nAccess: Librarian only",
+				"tags": [
+					"Library Book management"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"book_status": {
+										"type": "string"
+									},
+									"note": {
+										"type": "string"
+									},
+									"book_condition": {
+										"type": "string"
+									},
+									"id": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"book_status",
+									"note",
+									"book_condition",
+									"id"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/libran/inventory/soft_delete_book_condition": {
+			"delete": {
+				"operationId": "DeleteBook",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "API: Soft Delete Book Condition\r\nMethod: DELETE\r\nURL: /soft_delete_book_condition\r\n \"bookId\": \"BOOK_ID\"",
+				"tags": [
+					"Library Book management"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"_id": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"_id"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/fine/add_fine": {
+			"post": {
+				"operationId": "AddFine",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"fine Book"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"isFineCancel": {
+										"type": "number",
+										"format": "double"
+									},
+									"paidDate": {
+										"type": "string"
+									},
+									"isPaid": {
+										"type": "number",
+										"format": "double"
+									},
+									"returnDate": {
+										"type": "string"
+									},
+									"book_id": {
+										"type": "string"
+									},
+									"borrowId": {
+										"type": "string"
+									},
+									"member_id": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"isFineCancel",
+									"paidDate",
+									"isPaid",
+									"returnDate",
+									"book_id",
+									"borrowId",
+									"member_id"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/fine/update_fine": {
+			"put": {
+				"operationId": "UpdateFine",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"fine Book"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"paidDate": {
+										"type": "string"
+									},
+									"isFineCancel": {
+										"type": "number",
+										"format": "double"
+									},
+									"isPaid": {
+										"type": "number",
+										"format": "double"
+									},
+									"returnDate": {
+										"type": "string"
+									},
+									"borrowId": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"paidDate",
+									"isFineCancel",
+									"isPaid",
+									"returnDate",
+									"borrowId"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/fine/get_fine": {
+			"get": {
+				"operationId": "GetFine",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"fine Book"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/user/fine/delete_fine": {
+			"delete": {
+				"operationId": "DeleteFine",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"fine Book"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"_id": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"_id"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/dashboard/Dashboard": {
+			"get": {
+				"operationId": "GetDashboard",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "API: Get Dashboard Data\r\nMethod: GET\r\nURL: /user/dashboard",
+				"tags": [
+					"Dashboard"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/common/common_content": {
+			"get": {
+				"operationId": "GetCommonContent",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Get Common Content info",
+				"tags": [
+					"Common"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/common/questions": {
+			"get": {
+				"operationId": "GetQuestions",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Get Faq Questions",
+				"tags": [
+					"Common"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/common/store_parameter_to_aws": {
+			"post": {
+				"operationId": "StoreParameterToAws",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Post parameter to aws",
+				"tags": [
+					"Common"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"name": {
+										"type": "string"
+									},
+									"value": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"name",
+									"value"
+								]
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/borrow/add_borrow": {
+			"post": {
+				"operationId": "AddBorrow",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "API: Add Borrow (Issue Book)\r\nMethod: POST\r\nURL: /add_borrow\r\n\r\nBody:\r\n{\r\n  \"member_id\": \"ObjectId\",\r\n  \"book_id\": \"ObjectId\",\r\n  \"issueDate\": 20260411,\r\n  \"lastDate\": 20260420\r\n}",
+				"tags": [
+					"Borrow Book"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"lastDate": {
+										"type": "string"
+									},
+									"issueDate": {
+										"type": "string"
+									},
+									"book_id": {
+										"type": "string"
+									},
+									"member_id": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"lastDate",
+									"issueDate",
+									"book_id",
+									"member_id"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/borrow/get_borrow_book": {
+			"get": {
+				"operationId": "GetBorrowBook",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Borrow Book"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/user/borrow/update_borrow_book": {
+			"put": {
+				"operationId": "Update_borrow_book",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Borrow Book"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"issueDate": {
+										"type": "string"
+									},
+									"renewCount": {
+										"type": "number",
+										"format": "double"
+									},
+									"status": {
+										"type": "boolean"
+									},
+									"lastDate": {
+										"type": "string"
+									},
+									"_id": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"issueDate",
+									"renewCount",
+									"status",
+									"lastDate",
+									"_id"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/borrow/delete_borrow_book": {
+			"delete": {
+				"operationId": "Delete_borrow_book",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Borrow Book"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"_id": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"_id"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/admin/user/list": {
+			"get": {
+				"operationId": "GetUsersList",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Get User List",
+				"tags": [
+					"Admin User Routes"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "sort_column",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "sort_direction",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "search_key",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "status",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/admin/user/details": {
+			"get": {
+				"operationId": "GetUserDetails",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Get User Details",
+				"tags": [
+					"Admin User Routes"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "user_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/admin/user/status": {
+			"put": {
+				"operationId": "UpdateUserStatus",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Update User Status\r\n1 for active 2 for delete 3 for deactivate",
+				"tags": [
+					"Admin User Routes"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"status": {
+										"type": "number",
+										"format": "double"
+									},
+									"user_id": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"status",
+									"user_id"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/admin/user/dashboard": {
+			"get": {
+				"operationId": "GetDashboardData",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Get Dashboard data",
+				"tags": [
+					"Admin User Routes"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "past_day",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/admin/user/upload/multipart/init": {
+			"post": {
+				"operationId": "InitiateMultipartUpload",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "1. Initiate Multipart Upload",
+				"tags": [
+					"Admin User Routes"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/InitMultipartRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/admin/user/upload/multipart/sign-part": {
+			"post": {
+				"operationId": "SignMultipartPart",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "2. Sign Part",
+				"tags": [
+					"Admin User Routes"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SignPartRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/admin/user/upload/multipart/complete": {
+			"post": {
+				"operationId": "CompleteMultipartUpload",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "3. Complete Multipart",
+				"tags": [
+					"Admin User Routes"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CompleteMultipartRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/admin/user/upload/process_file_admin": {
+			"post": {
+				"operationId": "ProcessFileAdmin",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Process File Admin",
+				"tags": [
+					"Admin User Routes"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"duration": {
+										"type": "number",
+										"format": "double"
+									},
+									"s3_key": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"s3_key"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/admin/contactus/list": {
+			"get": {
+				"operationId": "ListContactDetails",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "List events.",
+				"tags": [
+					"Admin ContactUs Routes"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "sort_column",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "sort_direction",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "search_key",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/admin/contactus/details": {
+			"get": {
+				"operationId": "GetContactDetail",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "List events.",
+				"tags": [
+					"Admin ContactUs Routes"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "contact_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/admin/contactus/delete": {
+			"delete": {
+				"operationId": "DeleteContactUs",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Delete Contact.",
+				"tags": [
+					"Admin ContactUs Routes"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"contact_id": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"contact_id"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/admin/contactus/reply": {
+			"post": {
+				"operationId": "ReplyContactus",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Reply TO Contact",
+				"tags": [
+					"Admin ContactUs Routes"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"html": {
+										"type": "string"
+									},
+									"contact_id": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"html",
+									"contact_id"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/admin/common/question": {
+			"post": {
+				"operationId": "AddQuestion",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Add Question  endpoint",
+				"tags": [
+					"Admin Common Routes"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"answer": {
+										"type": "string"
+									},
+									"question": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"answer",
+									"question"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			},
+			"put": {
+				"operationId": "UpdateQuestion",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Update Question endpoint",
+				"tags": [
+					"Admin Common Routes"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"answer": {
+										"type": "string"
+									},
+									"question": {
+										"type": "string"
+									},
+									"question_id": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"answer",
+									"question",
+									"question_id"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "DeleteQuestion",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Delete Question endpoint",
+				"tags": [
+					"Admin Common Routes"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"question_id": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"question_id"
+								]
+							}
+						}
+					}
+				}
+			}
+		},
+		"/admin/common/common_content": {
+			"put": {
+				"operationId": "UpdateCommonContent",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Update Common Content endpoint",
+				"tags": [
+					"Admin Common Routes"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"terms_conditions": {
+										"type": "string"
+									},
+									"privacy_policy": {
+										"type": "string"
+									},
+									"about": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"terms_conditions",
+									"privacy_policy",
+									"about"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/admin/auth/login": {
+			"post": {
+				"operationId": "Login",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Get Admin login",
+				"tags": [
+					"Admin Auth Routes"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"password": {
+										"type": "string"
+									},
+									"email": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"password",
+									"email"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/admin/auth/forgot_password": {
+			"post": {
+				"operationId": "ForgotPassword",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Forgot password api endpoint",
+				"tags": [
+					"Admin Auth Routes"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"email": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"email"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/admin/auth/reset_password": {
+			"post": {
+				"operationId": "ResetPassword",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Reset password api endpoint",
+				"tags": [
+					"Admin Auth Routes"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"otp": {
+										"type": "string"
+									},
+									"new_password": {
+										"type": "string"
+									},
+									"email": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"otp",
+									"new_password",
+									"email"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/admin/auth/verify_otp": {
+			"post": {
+				"operationId": "VerifyOtp",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Verify Otp Route  api endpoint",
+				"tags": [
+					"Admin Auth Routes"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"otp": {
+										"type": "number",
+										"format": "double"
+									},
+									"email": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"otp",
+									"email"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/admin/auth/resend_otp": {
+			"post": {
+				"operationId": "ResendOtp",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Resend Otp Route  api endpoint",
+				"tags": [
+					"Admin Auth Routes"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"email": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"email"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/admin/auth/change_password": {
+			"post": {
+				"operationId": "ChangePassword",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Change Password endpoint",
+				"tags": [
+					"Admin Auth Routes"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"new_password": {
+										"type": "string"
+									},
+									"old_password": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"new_password",
+									"old_password"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/admin/auth/details": {
+			"get": {
+				"operationId": "GetAdminDetails",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Get Admin info",
+				"tags": [
+					"Admin Auth Routes"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/admin/auth/profile": {
+			"put": {
+				"operationId": "UpdateAdminProfile",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Update Admin Profile",
+				"tags": [
+					"Admin Auth Routes"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": false,
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"first_name": {
+										"type": "string"
+									},
+									"last_name": {
+										"type": "string"
+									},
+									"phone_number": {
+										"type": "string"
+									},
+									"country_code": {
+										"type": "string"
+									},
+									"greet_msg": {
+										"type": "string"
+									},
+									"profile_pic": {
+										"type": "string",
+										"format": "binary"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/admin/auth/refresh_token": {
+			"post": {
+				"operationId": "RefreshToken",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Refresh token api\r\nprovide refresh token in this api and get new access token",
+				"tags": [
+					"Admin Auth Routes"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"refresh_token": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"refresh_token"
+								]
+							}
+						}
+					}
+				}
+			}
+		},
+		"/admin/auth/logout": {
+			"post": {
+				"operationId": "LogoutUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Logout User",
+				"tags": [
+					"Admin Auth Routes"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/libran/addBook/add_book": {
+			"post": {
+				"operationId": "AddBook",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "API: Add Book\r\nMethod: POST\r\nURL: /add_book\r\n\r\nBody:\r\n{\r\n  \"title\": \"Book Name\",\r\n  \"author\": \"Author Name\",\r\n  \"isbn\": \"1234567890\",\r\n  \"genre\": \"Fiction\",        \r\n  \"totalCopies\": 10,\r\n  \"shelfLocation\": \"A1\"      \r\n}",
+				"tags": [
+					"Librarian Add Book"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"shelfLocation": {
+										"type": "string"
+									},
+									"totalCopies": {
+										"type": "number",
+										"format": "double"
+									},
+									"genre": {
+										"type": "string"
+									},
+									"isbn": {
+										"type": "number",
+										"format": "double"
+									},
+									"author": {
+										"type": "string"
+									},
+									"title": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"shelfLocation",
+									"totalCopies",
+									"genre",
+									"isbn",
+									"author",
+									"title"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/libran/addBook/update_book": {
+			"put": {
+				"operationId": "UpdateBook",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "API: Update Book\r\nMethod: PUT\r\nURL: /update_book\r\n\r\nBody:\r\n{\r\n  \"book_id\": \"BOOK_ID\",\r\n  \"title\": \"Book Name\",          \r\n  \"author\": \"Author Name\",       \r\n  \"isbn\": \"1234567890\",          \r\n  \"genre\": \"Fiction\",           \r\n  \"totalCopies\": 10,            \r\n  \"availableCopies\": 5,          \r\n  \"shelfLocation\": \"A1\"          \r\n}",
+				"tags": [
+					"Librarian Add Book"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"shelfLocation": {
+										"type": "string"
+									},
+									"availableCopies": {
+										"type": "number",
+										"format": "double"
+									},
+									"totalCopies": {
+										"type": "number",
+										"format": "double"
+									},
+									"genre": {
+										"type": "string"
+									},
+									"isbn": {
+										"type": "number",
+										"format": "double"
+									},
+									"author": {
+										"type": "string"
+									},
+									"title": {
+										"type": "string"
+									},
+									"book_id": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"shelfLocation",
+									"totalCopies",
+									"genre",
+									"isbn",
+									"author",
+									"title",
+									"book_id"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/libran/addBook/get_books": {
+			"get": {
+				"operationId": "GetBook",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "API: Get Books\r\nMethod: POST\r\nURL: /get_books\r\n\r\nQuery Params:\r\n{\r\n  \"page\": 1,\r\n  \"limit\": 10,\r\n  \"author\": \"Author Name\",\r\n  \"genre\": \"Genre Name\",\r\n  \"availability\": \"available\" // or \"not_available\"\r\n}",
+				"tags": [
+					"Librarian Add Book"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "author",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "genre",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "availability",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/libran/addBook/delete_book": {
+			"delete": {
+				"operationId": "DeleteBook",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Librarian Add Book"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "book_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/api/v1"
+		}
+	]
+}
