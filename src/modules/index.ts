@@ -13,6 +13,7 @@ import reservation from '../modules/Reservcation/reservation.route'
 import Borrow from '../modules/Borrow_book/borrow_book.route'
 import Addfine from '../modules/fine/fine.route'
 import DashBoard from '../modules/dashboard/dashboard.route'
+import pdf from '../modules/pdfgenerator/pdfgenerator.route'
 //user and admin all usertype common routes
 import commonRoutes from '../modules/Common/common.route'
 
@@ -41,6 +42,7 @@ Route.use('/libran/join_member', member);
 Route.use('/reservation', reservation);
 Route.use('/user/borrow',Borrow)
 Route.use('/user/fine',Addfine)
+Route.use('/libran/report',pdf)
 
 //user and admin all usertype common routes
 Route.use('/common', commonRoutes);

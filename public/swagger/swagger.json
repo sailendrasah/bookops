@@ -956,6 +956,78 @@
 				}
 			}
 		},
+		"/libran/report/borrow-history": {
+			"get": {
+				"operationId": "ExportBorrowHistory",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "📚 Borrow History Export\r\nGET /libran/report/borrow-history?format=csv|pdf",
+				"tags": [
+					"Reports"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "format",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/libran/report/member-activity": {
+			"get": {
+				"operationId": "ExportMemberActivity",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Member Activity Export\r\nGET /libran/report/member-activity?format=csv|pdf",
+				"tags": [
+					"Reports"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "format",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
 		"/libran/join_member/join_member": {
 			"post": {
 				"operationId": "JoinMember",
