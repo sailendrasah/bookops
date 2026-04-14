@@ -1,9 +1,8 @@
 import Borrow from "../../modules/Borrow_book/borrow_book.modal";
 import { showResponse } from "../../utils/response.util";
 import statusCodes from "../../constants/statusCodes";
-import generatePdf from "../../utils/puppteer.utils";
+import {generatePdf,excel} from "../../utils/puppteer.utils";
 
-// inside exportBorrowHistory
 
 const handler = {
 
@@ -48,16 +47,19 @@ const handler = {
 
   
 
-    // PDF
     if (format === "pdf") {
       const pdf = await generatePdf("Borrow Report", borrows);
       return showResponse(true, "PDF generated", pdf, statusCodes.SUCCESS);
+    }
+    if (format === "excel") {
+      const excels = await excel(borrows);
+      return showResponse(true, "Excel generated", excels, statusCodes.SUCCESS);
     }
 
     return showResponse(true, "Data fetched", borrows, statusCodes.SUCCESS);
   },
 
-  // 👤 Member Activity
+
   exportMemberActivity: async (request: any) => {
     const { format } = request;
 
@@ -96,6 +98,12 @@ const handler = {
     if (format === "pdf") {
       const pdf = await generatePdf("Member Activity Report", activity);
       return showResponse(true, "PDF generated", pdf, statusCodes.SUCCESS);
+    }
+
+    // Excel
+    if (format === "excel") {
+      const excels = await excel(activity);
+      return showResponse(true, "Excel generated", excels, statusCodes.SUCCESS);
     }
 
     return showResponse(true, "Data fetched", activity, statusCodes.SUCCESS);

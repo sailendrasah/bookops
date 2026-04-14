@@ -38,7 +38,7 @@ export default class joinmember extends Controller {
 public async joinMember(@Body() request:{memberShipType:string}):Promise<ApiResponse>{
      const userRole = this.req.body.user?.ROLE;
     if (userRole !== "USER") {
-      return showResponse(false, "Only user can add books", null, statusCodes.API_ERROR)
+      return showResponse(false, "Only user can add ", null, statusCodes.API_ERROR)
     }
     const validate = validatemember(request);
      if(validate.error){

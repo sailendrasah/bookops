@@ -1,4 +1,5 @@
 import PDFDocument from "pdfkit";
+import Excel from 'exceljs'
 
 const generatePdf = (title: string, data: any[]): Promise<Buffer> => {
   return new Promise((resolve, reject) => {
@@ -8,6 +9,7 @@ const generatePdf = (title: string, data: any[]): Promise<Buffer> => {
     }
 
     const doc = new PDFDocument({ margin: 30 });
+
     const buffers: Buffer[] = [];
 
     doc.on("data", buffers.push.bind(buffers));
@@ -52,6 +54,25 @@ const generatePdf = (title: string, data: any[]): Promise<Buffer> => {
 
     doc.end();
   });
+
 };
 
-export default generatePdf;
+  const excel =(data:any[])=>{
+    const excel = new Excel.Workbook();
+    const book = excel.addWorksheet("Books")
+     if (!data.length) {
+    throw new Error("No data found");
+  }
+  const header =Object.keys(data[0]);
+  book.columns = header.map((key)=>({
+    header:key,
+    key:key,
+    width:20
+  }))
+   data.forEach((item) => {
+    book.addRow(item);
+  });
+  const buffer =  excel.xlsx.writeBuffer()
+  return buffer
+  }
+export  {generatePdf,excel};

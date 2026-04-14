@@ -2,6 +2,7 @@ import Book from "./libarian.adBook.model";
 import { showResponse } from "../../utils/response.util";
 import statusCodes from "../../constants/statusCodes";
 import { ApiResponse } from "../../utils/interfaces.util";
+import mongoose from "mongoose";
 
 const addBookHandler = {
   addBook: async (request: any): Promise<ApiResponse> => {
@@ -48,7 +49,10 @@ const addBookHandler = {
       shelfLocation,
     } = data;
 
-    const existingBook = await Book.findById(data.book_id);
+   const existingBook = await Book.findById(
+  new mongoose.Types.ObjectId(data.book_id)
+);
+    console.log(existingBook,"=========")
     if (!existingBook) {
       return showResponse(false, "Book not found", null, statusCodes.API_ERROR);
     }

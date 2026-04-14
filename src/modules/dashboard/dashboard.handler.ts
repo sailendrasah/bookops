@@ -12,14 +12,14 @@ const dashboardHandler = {
 
     const totalBooks = await Book.countDocuments({ isActive: 1 });
 
-    // 2. Total Members
+    
     const totalMembers = await Member.countDocuments({ status: 1 });
 
     const activeBorrowings = await Borrow.countDocuments({
       status: true,
     });
 
-    // 5. Total Fine Collected
+  
     const fineData = await Fine.aggregate([
       {
         $match: {

@@ -9,7 +9,7 @@ const router = express.Router();
 /**
  * 📚 Borrow History Report
  * GET /libran/report/borrow-history?format=csv|pdf
- */
+ */     
 router.get(
   "/borrow-history",
   verifyTokenUser,
@@ -26,7 +26,13 @@ router.get(
       return res.status(200).send(result.data);
     }
 
-    return showOutput(res, result, result.code!);
+    if (format === "excel" && result.status && Buffer.isBuffer(result.data)) {
+      res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+      res.setHeader("Content-Disposition", 'attachment; filename="borrow-history.xlsx"');
+      return res.status(200).send(result.data);
+    }
+
+    return showOutput(res, result, result.code || 200);
   }
 );
 
@@ -44,11 +50,7 @@ router.get(
 
     const result: ApiResponse = await controller.exportMemberActivity(format);
 
-    if (format === "pdf" && result.status && Buffer.isBuffer(result.data)) {
-      res.setHeader("Content-Type", "application/pdf");
-      res.setHeader("Content-Disposition", 'attachment; filename="member-activity.pdf"');
-      return res.status(200).send(result.data);
-    }
+  
 
     return showOutput(res, result, result.code!);
   }

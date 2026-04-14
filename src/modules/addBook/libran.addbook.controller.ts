@@ -86,7 +86,7 @@ export default class LibrarianAddBook extends Controller {
       return showResponse(false, validate.error.message, null, statusCodes.VALIDATION_ERROR)
     }
     const wrapperfun = tryCatchWrapper(handler.updateBook)
-    return wrapperfun(this.userId,request);
+    return wrapperfun({ userId:this.userId,...request});
   }
 
 /**
