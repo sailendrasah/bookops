@@ -6,7 +6,7 @@ import cors from "cors";
 import helmet from "helmet";
 import { serve, setup } from "swagger-ui-express";
 import Routes from "./modules/index";
-import { bootstrapAdmin } from "./utils/bootstrap.util";
+// import { bootstrapAdmin } from "./utils/bootstrap.util";
 // import { rateLimiter } from "./utils/config.util";
 import { APP } from "./constants/app.constant";
 import { connection } from "./configs/mongoose.config";
@@ -26,9 +26,9 @@ const app: Application = express();
 ========================= */
 connection()
   .then(() => {
-    bootstrapAdmin(() => {
-      console.log("Bootstrapping finished!");
-    });
+    // bootstrapAdmin(() => {
+    //   console.log("Bootstrapping finished!");
+    // });
   })
   .catch((err: any) => {
     console.log(err, "error Bootstrapping");

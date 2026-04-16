@@ -492,6 +492,7 @@ const UserAuthHandler = {
     },//ends
 
     async logoutUser(): Promise<ApiResponse> {
+
         return showResponse(true, responseMessage.users.logout_success, null, statusCodes.SUCCESS)
     },//ends
 
