@@ -12,6 +12,10 @@ ROLE: {
   type: String,
   enum: ["USER", "LIBRARIAN"],
 },
+is_subscribed:{
+    type:Boolean,
+    default:false
+},
         otp: { type: Number, default: null },
         otp_expire: { type: Number, default: null },
         phone_number: { type: String, default: null },

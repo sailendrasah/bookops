@@ -172,7 +172,7 @@ const UserAuthHandler = {
 
     //***********SOCIAL LOGIN NOT USED : if social login not used in this project then use this function ************************ */
     register: async (data: any, profile_pic: any): Promise<ApiResponse> => {
-        const { Email, password, phone_no, Name, Role, Address } = data;
+        const { Email, password, phone_no, Name, Role, Address ,is_subscribed} = data;
 
         const queryObject = { email: Email, status: { $ne: USER_STATUS.DELETED } }
         // check if user exists
@@ -196,6 +196,7 @@ const UserAuthHandler = {
             Address: Address || "",
             otp,
             otp_expire: otp_erpire,
+            is_subscribed,
             is_verified: false
         }
 
