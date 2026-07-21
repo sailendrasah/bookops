@@ -11,11 +11,11 @@
     "start": "export AWS_PROFILE=digismart && export AWS_SDK_LOAD_CONFIG=1 && pm2 restart boiler_api_5300 || pm2 start build/src/server.js --name 'boiler_api_5300'",
     "restart": "pm2 restart boiler_api_5300",
     "predev": "npm run swagger",
-    "prebuild": "mkdir -p build && [ -f .env ] && cp .env build/ && mkdir -p build/public && cp -r public/swagger build/public",
+    "prebuild": "node -e \"const fs=require('fs'); fs.mkdirSync('build/public', {recursive:true}); fs.existsSync('.env') && fs.copyFileSync('.env', 'build/.env'); fs.existsSync('public/swagger') && fs.cpSync('public/swagger', 'build/public/swagger', {recursive:true});\"",
     "build": "tsc",
     "dev": "npm run lint && set AWS_PROFILE=digismart && set AWS_SDK_LOAD_CONFIG=1 && concurrently \"nodemon\" \"nodemon -x tsoa spec\"",
     "swagger": "tsoa spec",
-    "prestart": "mkdir -p build/src/templates && cp -a src/templates build/src",
+    "prestart": "node -e \"const fs=require('fs'); fs.mkdirSync('build/src/templates', {recursive:true}); fs.existsSync('src/templates') && fs.cpSync('src/templates', 'build/src/templates', {recursive:true});\"",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix"
   },
