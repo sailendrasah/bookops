@@ -192,7 +192,7 @@ const UserAuthHandler = {
             email: Email,
             password: hashed,
             phone_number: phone_no || null,
-            ROLE: Role || "MEMBER",
+            ROLE: Role || "USER",
             Address: Address || "",
             otp,
             otp_expire: otp_erpire,
@@ -212,6 +212,7 @@ const UserAuthHandler = {
 
         const result = await findOneAndUpdate(userAuthModel, queryObject, userData, true) //upsert true
         if (!result.status) {
+            console.error("Error creating account:", result);
             return showResponse(false, responseMessage.common.error_while_create_acc, null, statusCodes.API_ERROR)
         }
 

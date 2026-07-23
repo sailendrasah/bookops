@@ -67,5 +67,5 @@ const subscriptionDetailSchema = new mongoose.Schema({
         default:null,
     },
 },{timestamps:true})
-const subscriptionDetail = mongoose.model("subscriptionDetail",subscriptionDetailSchema)
+const   subscriptionDetail = mongoose.model("subscriptionDetail",subscriptionDetailSchema)
 export default subscriptionDetail;

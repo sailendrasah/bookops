@@ -113,9 +113,9 @@
 		}
 	},
 	"info": {
-		"title": "boiler_api_5300",
+		"title": "Bookops_api_5300",
 		"version": "1.0.0",
-		"description": "Boilerplate apis",
+		"description": "Bookops apis",
 		"license": {
 			"name": "license"
 		},

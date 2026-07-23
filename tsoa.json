@@ -3,8 +3,9 @@
   "noImplicitAdditionalProperties": "throw-on-extras",
   "spec": {
     "specVersion": 3,
+    "name": "Bookops_api_5300",
     "outputDirectory": "public/swagger",
-    "description": "Boilerplate apis",
+    "description": "Bookops apis",
     "basePath": "/api/v1",
     "version": "1.0.0",
     "license": "license",

@@ -15,7 +15,7 @@ export const validateRegister = (user: any) => {
         password: joi.string().min(4).max(20).required(),
         phone_no: joi.number().optional().allow(''),
         Role: joi.string().optional().allow(''),
-        Address: joi.string().optional().allow(''),
+        Address: joi.string().optional().allow(''), 
     }).validate(user)
 }
 

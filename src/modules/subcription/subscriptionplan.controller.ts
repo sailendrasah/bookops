@@ -38,7 +38,7 @@ export default class subscriptionController extends Controller {
     if (userRole !== "USER") {
       return showResponse(
         false,
-        "Only user can add ",
+        "Only user can add",
         null,
         statusCodes.API_ERROR,
       );
